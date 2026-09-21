@@ -10,17 +10,11 @@
     {
         bool isThereAMatch = false;
 
-        //Om första bokstaven som ska kollas är bokstav, bryt och börja nästa rad
-        // if (!char.IsDigit(input[row]))
-        // {
-        //     break;
-        // }
-
         //Loopa igenom tecken för tecken
         for (int chr = row + 1; chr < input.Length; chr++)
         {
             //Om tecknet är en bokstav, bryt
-            if (!char.IsDigit(input[chr]))
+            if (!char.IsDigit(input[chr]) || !char.IsDigit(input[row]))
             {
                 nextIndexInArray++;
                 break;
