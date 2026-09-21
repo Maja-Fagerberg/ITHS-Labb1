@@ -9,6 +9,7 @@
     for (int row = 0; row < input.Length; row++)
     {
         bool isThereAMatch = false;
+        // Console.WriteLine(row); //BARA FÖR ATT SE VILKEN RADEN BÖRJAR PÅ, TA BORT SENARE
 
         //Loopa igenom tecken för tecken
         for (int chr = row + 1; chr < input.Length; chr++)
@@ -25,6 +26,7 @@
             {
                 substringStart[nextIndexInArray] = row;
                 substringEnd[nextIndexInArray] = chr;
+                substringsSaved[nextIndexInArray] = input.Substring(row, chr - row + 1);
                 isThereAMatch = true;
                 nextIndexInArray++;
                 break;
