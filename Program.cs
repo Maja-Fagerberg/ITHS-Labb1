@@ -1,4 +1,6 @@
-﻿static void FindThemNumberStrings(string input)
+﻿using System.Linq;
+
+static void FindThemNumberStrings(string input)
 {
     string[] substringsSaved = new string[input.Length];
     int[] substringStart = new int[input.Length];
@@ -17,7 +19,6 @@
             //Om tecknet är en bokstav, bryt
             if (!char.IsDigit(input[chr]) || !char.IsDigit(input[row]))
             {
-                nextIndexInArray++;
                 break;
             }
 
@@ -28,16 +29,17 @@
                 substringEnd[nextIndexInArray] = chr;
                 substringsSaved[nextIndexInArray] = input.Substring(row, chr - row + 1);
                 isThereAMatch = true;
-                nextIndexInArray++;
                 break;
             }
         }
+        nextIndexInArray++;
 
-        //Körs bara om det finns en match den här raden
+        //Körs bara om det finns en match den här raden, ksriver ut
         if (isThereAMatch)
         {
             for (int chr = 0; chr < input.Length; chr++)
             {
+                
                 if (chr >= row && chr <= substringEnd[row])
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -52,6 +54,28 @@
         Console.WriteLine(); //Ny rad
         }
     }
+
+    //Clearar färgen efter loopen
+    Console.ResetColor();
+
+    //Tar bort nullvärden från arrayen
+    substringsSaved = substringsSaved.Where(s => s != null).ToArray();
+
+    long sumOfSubstrings = substringsSaved.Sum(x => long.Parse(x));
+    Console.WriteLine("\n" +sumOfSubstrings);
 }
 
-FindThemNumberStrings("29535123p48723487597645723645");
+//Kollar så strängen inte är null eller tom
+string? input = string.Empty;
+while (input == "" || input == null)
+{
+    Console.Write("Skriv in en rad innehållande siffror och bokstäver: ");
+    input = Console.ReadLine();
+    if (input == "" || input == null)
+    {
+        Console.Clear();
+        Console.WriteLine("Kan inte vara en tom sträng. Försök igen.");
+    }
+}
+
+FindThemNumberStrings(input);
